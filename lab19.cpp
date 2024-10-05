@@ -12,7 +12,7 @@
 using namespace std;
 
 struct Review {
-	float rating;
+	double rating;
 	string comment;
 };
 
@@ -29,7 +29,7 @@ struct Movie {
 void addToHead(Node *&, Review); //Add a node to the head of a list
 void getReview(Node *&, string); //Gets a review, returns true if the user wants to enter another review
 void dispList(Node *); //displays all reviews
-float calcAvg(Node *); //calculates the average rating of a list
+double calcAvg(Node *); //calculates the average rating of a list
 void dispMovie(Movie); //displays a movie item
 
 int main(){
@@ -100,10 +100,10 @@ void dispList(Node * hd) {
 	}
 }
 
-float calcAvg(Node * hd) {
+double calcAvg(Node * hd) {
 	Node * current = hd;
 	int count = 0;
-	float sum = 0;
+	double sum = 0;
 	while (current) {
 		count++;
 		sum = sum + current->value.rating;
