@@ -8,6 +8,7 @@
 #include <string>
 #include <vector>
 #include <ctime>
+#include <fstream>
 using namespace std;
 
 struct Review {
@@ -26,22 +27,32 @@ struct Movie {
 };
 
 void addToHead(Node *&, Review); //Add a node to the head of a list
-bool getReview(Node *&); //Gets a review, returns true if the user wants to enter another review
+void getReview(Node *&, string); //Gets a review, returns true if the user wants to enter another review
 void dispList(Node *); //displays all reviews
 float calcAvg(Node *); //calculates the average rating of a list
 
 int main(){
+	srand(time(0));
 	vector<Movie> movies;
 
-	//populate four movie items
-	for (int i; i < 4; i++){
-		Node * head = nullptr;
-
-
-
-
-	while (getReview(head));
+	//open input file
+	ifstream in;
+	in.open("reviews.txt");
+	if (!in){
+		cout << "File open error.\n";
+		return -1;
 	}
+
+	//populate four movie items
+	while (!in.eof())
+		Movie temp;
+		getline(in, temp.name);
+
+
+	}
+
+	//close input file
+	in.close();
 
 	cout << "Outputting all reviews:\n";
 	dispList(head);
@@ -63,24 +74,13 @@ void addToHead(Node *&hd, Review v) {
 	hd = newVal;
 }
 
-bool getReview(Node *&hd) {
+void getReview(Node *&hd, string r) {
 	//get the review
 	Review temp;
-	cout << "Enter review rating 0-5: ";
-	cin >> temp.rating;
-	cin.ignore();
-	cout << "Enter review comments: ";
-	getline(cin, temp.comment);
+	temp.rating = (rand() % 51) / 10;
+	temp.comment = r;
 	//add the review to the list
 	addToHead(hd, temp);
-	//new review or not
-	char inp;
-	cout << "Enter another review? y/n: ";
-	cin >> inp;
-	if (inp=='y')
-		return true;
-	else
-		return false;
 }
 
 void dispList(Node * hd) {
