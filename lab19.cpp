@@ -30,6 +30,7 @@ void addToHead(Node *&, Review); //Add a node to the head of a list
 void getReview(Node *&, string); //Gets a review, returns true if the user wants to enter another review
 void dispList(Node *); //displays all reviews
 float calcAvg(Node *); //calculates the average rating of a list
+void dispMovie(Movie); //displays a movie item
 
 int main(){
 	srand(time(0));
@@ -43,29 +44,27 @@ int main(){
 		return -1;
 	}
 
-	cout << "Flag 1\n";
-
-	//populate four movie items
+	//populate movie items
 	while (!in.eof()) {
 		Movie temp;
 		getline(in, temp.name);
-		cout << "New movie flag\n";
 		temp.reviews = nullptr;
-/*		string comment;
+		string comment;
 		getline(in, comment);
 		while (comment != ""){
 			getReview(temp.reviews, comment);
 			getline(in, comment);
-		}*/
+		}
 		movies.push_back(temp);
 	}
-
-	cout << "Flag 2";
 
 	//close input file
 	in.close();
 
 	//display movies
+	for (Movie m : movies){
+		dispMovie(m);
+	}
 
 	return 0;
 }
@@ -85,7 +84,7 @@ void addToHead(Node *&hd, Review v) {
 void getReview(Node *&hd, string r) {
 	//get the review
 	Review temp;
-	temp.rating = (rand() % 51) / 10;
+	temp.rating = (rand() % 51) / 10.0;
 	temp.comment = r;
 	//add the review to the list
 	addToHead(hd, temp);
@@ -111,4 +110,11 @@ float calcAvg(Node * hd) {
 		current = current->next;
 	}
 	return sum / count;
+}
+
+void dispMovie(Movie m) {
+	cout << "Title: " << m.name << endl;
+	cout << "Reviews:\n";
+	dispList(m.reviews);
+	cout << "\tAverage: " << calcAvg(m.reviews) << "\n\n";
 }
