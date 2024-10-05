@@ -43,21 +43,29 @@ int main(){
 		return -1;
 	}
 
+	cout << "Flag 1\n";
+
 	//populate four movie items
-	while (!in.eof())
+	while (!in.eof()) {
 		Movie temp;
 		getline(in, temp.name);
-
-
+		cout << "New movie flag\n";
+		temp.reviews = nullptr;
+/*		string comment;
+		getline(in, comment);
+		while (comment != ""){
+			getReview(temp.reviews, comment);
+			getline(in, comment);
+		}*/
+		movies.push_back(temp);
 	}
+
+	cout << "Flag 2";
 
 	//close input file
 	in.close();
 
-	cout << "Outputting all reviews:\n";
-	dispList(head);
-
-	cout << "\tAverage: " << calcAvg(head);
+	//display movies
 
 	return 0;
 }
